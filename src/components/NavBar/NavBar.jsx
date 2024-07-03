@@ -15,24 +15,36 @@ import {
 } from "@chakra-ui/react";
 import { FaAngleDown } from "react-icons/fa";
 import "./NavBar.css";
-
+import {Link} from "react-router-dom";
 
 const NavBar = () => {
   return (
     <Flex className="navBar" justify={'space-between'} align={'center'} height={'10vh'} w={'100%'}>
-        <Heading ml={4}><img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Boca_logo_la_mitad_m%C3%A1s_uno.png" alt="Logo" style={{ height: '70px', width: 'auto' }} /></Heading>
+        <Heading ml={4}><Link to='/'><img src="https://www.bocashop.com.ar/arquivos/logo-boca.png?v=637316368732270000" alt="Logo" style={{ height: '70px', width: 'auto', padding:'10px'}} /></Link></Heading>
       <Menu>
         <MenuButton as={Button} rightIcon={<FaAngleDown />}>
           Categorias
         </MenuButton>
         <MenuList>
-          <MenuItem>Camisetas</MenuItem>
-          <MenuItem>Joggins</MenuItem>
-          <MenuItem>Shorts</MenuItem>
-          <MenuItem>Medias</MenuItem>
-          <MenuItem>Buzos</MenuItem>
-          <MenuItem>Camperas</MenuItem>
-        </MenuList>
+        <MenuItem className="menu-item">
+            <Link to="/categorias/Camisetas" className="menu-link">Camisetas</Link>
+          </MenuItem>
+          <MenuItem className="menu-item">
+            <Link to="/categorias/Calzado" className="menu-link">Calzado</Link>
+          </MenuItem>
+          <MenuItem className="menu-item">
+            <Link to="/categorias/Joggins" className="menu-link">Joggins</Link>
+          </MenuItem>
+          <MenuItem className="menu-item">
+            <Link to="/categorias/Shorts" className="menu-link">Shorts</Link>
+          </MenuItem>
+          <MenuItem className="menu-item">
+            <Link to="/categorias/Gorras" className="menu-link">Gorras</Link>
+          </MenuItem>
+          <MenuItem className="menu-item">
+            <Link to="/categorias/Camperas" className="menu-link">Camperas</Link>
+          </MenuItem>
+        </MenuList> 
       </Menu>
       <CartWidget />
     </Flex>
