@@ -5,23 +5,38 @@ import { getProducts, getProductsByCategory } from "../../data/asyncMock";
 import ItemList from "../ItemList/ItemList";
 import { useParams } from "react-router-dom";
 import { CircularProgress, Box, Image } from "@chakra-ui/react";
+import { db } from "../../config/firebase";
+import { getDocs, collection, query, where } from "firebase/firestore";
 
 const ItemListContainer = ({ title }) => {
   const [productos, setProductos] = useState([]);
   const { categoryId } = useParams();
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setLoading(true);
-    const dataProductos = categoryId
-      ? getProductsByCategory(categoryId)
-      : getProducts();
-    dataProductos
-      .then((prod) => setProductos(prod))
-      .catch((error) => console.log("Error", error))
-      .finally(() => setLoading(false));
-  }, [categoryId]);
 
+  useEffect(() => {
+    setLoading(true)
+    const getData = async () => {
+        const coleccion = collection(db, 'productos')
+
+        const queryRef = !categoryId ?
+        coleccion : query(coleccion, where('categoria', '==', categoryId))
+
+        const response = await getDocs(queryRef)
+
+        const products = response.docs.map((doc) =>{
+          const newItem = {
+            ...doc.data(),
+            id: doc.id
+          }
+          return newItem
+        })
+        setProductos(products)
+        setLoading(false)
+    }
+    getData()
+}, [categoryId])
+ console.log(productos)
 
 
   return (
@@ -45,7 +60,7 @@ const ItemListContainer = ({ title }) => {
         loading ? 
       <CircularProgress isIndeterminate color='green.300' />
       :
-      <ItemList productos={productos} />
+      <ItemList productos={productos}/>
         }
     </Flex>
   );

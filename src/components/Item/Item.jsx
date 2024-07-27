@@ -33,10 +33,10 @@ const Item = ({ nombre, img, id, precio, stock }) => {
       <Divider />
       <CardFooter>
         <ButtonGroup spacing='2'>
-          <Button variant='black' colorScheme='blue'>
+          <Button variant='black' colorScheme='blue' bg={'white'}>
             <Link to={`/producto/${id}`}>Ver detalle</Link>
           </Button>
-          <ItemCount initialValue={1} stock={stock} OnAdd={OnAdd} />
+          {/* <ItemCount initialValue={1} stock={stock} OnAdd={OnAdd} /> */}
         </ButtonGroup>
       </CardFooter>
       <ToastContainer />
